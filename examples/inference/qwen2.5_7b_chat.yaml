@@ -1,0 +1,4 @@
+model_name_or_path: Qwen/Qwen2.5-7B-Instruct # 当前仅支持本地加载，填写Qwen/Qwen2.5-7B-Instruct本地权重路径
+adapter_name_or_path: ./saves/Qwen/Qwen2.5-7B-Instruct/lora/sft
+template: qwen
+finetuning_type: lora

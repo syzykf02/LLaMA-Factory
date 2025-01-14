@@ -1,0 +1,38 @@
+### model
+model_name_or_path: Qwen/Qwen2.5-1.5B-Instruct  # 使用的预训练模型路径或模型名称，基于 Hugging Face 模型库。
+
+### method
+stage: pt                          # 当前训练阶段，`pt` 表示预训练。
+do_train: true                     # 是否执行训练过程。
+finetuning_type: lora              # 使用 LoRA（Low-Rank Adaptation）进行微调。
+lora_target: all                   # LoRA 微调的目标层，`all` 表示作用于模型的所有层。
+
+### dataset
+dataset: minfadian                   # 数据集名称，`c4_demo` 是一个示例数据集。
+cutoff_len: 2048                   # 每个样本的最大序列长度（token 数量），超过该长度将被截断。
+max_samples: 1000                  # 最大样本数量，设置为 1000 用于调试或小规模实验。
+overwrite_cache: true              # 是否覆盖预处理生成的缓存文件。
+preprocessing_num_workers: 16      # 数据预处理的并行工作线程数量，建议与 CPU 核心数一致。
+
+### output
+output_dir: saves/Qwen/Qwen2.5-1.5B-Instruct/lora/pretrain  # 保存训练输出（如模型权重和日志）的目录。
+logging_steps: 10                # 每隔多少步打印一次日志信息。
+save_steps: 500                  # 每隔多少步保存一次模型权重。
+plot_loss: true                  # 是否在训练结束后绘制损失曲线图。
+overwrite_output_dir: true       # 如果输出目录存在，是否覆盖其中的内容。
+
+### train
+per_device_train_batch_size: 1   # 每个设备（GPU/TPU）上的训练批量大小。
+gradient_accumulation_steps: 8   # 梯度累积的步数，实际有效批量大小为 `batch_size * gradient_accumulation_steps`。
+learning_rate: 1.0e-4            # 初始学习率。
+num_train_epochs: 300.0            # 训练的总轮次。
+lr_scheduler_type: cosine        # 学习率调度器类型，`cosine` 表示余弦退火策略。
+warmup_ratio: 0.1                # 学习率预热的比例，例如总训练步数的 10% 用于学习率线性升高。
+bf16: true                       # 是否启用 bfloat16 精度训练，减少显存占用且保持较高精度。
+ddp_timeout: 180000000           # 分布式数据并行（DDP）的超时时间，单位为秒，适用于大规模分布式训练。
+
+### eval
+val_size: 0.1                    # 验证集的比例，例如数据集中 10% 用作验证集。
+per_device_eval_batch_size: 1    # 每个设备（GPU/TPU）上的验证批量大小。
+eval_strategy: steps             # 验证策略，`steps` 表示在指定的训练步数后进行验证。
+eval_steps: 500                  # 每隔多少步执行一次验证。

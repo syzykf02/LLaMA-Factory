@@ -632,5 +632,24 @@
       "prompt": "content"
     },
     "folder": "python"
+  },
+  "wikipedia-cn-20230720": {
+    "file_name": "temp/wikipedia-cn-20230720-filtered/wikipedia-cn-20230720-filtered.json",
+    "columns": {
+      "prompt": "completion"
+    }
+  },
+  "minfadian": {
+    "file_name": "minfadian.json",
+    "columns": {
+      "prompt": "text"
+    }
+  },
+  "long_cite": {
+    "file_name": "LongCite-45k.json",
+    "columns": {
+      "prompt": "prompt",
+      "response": "response"
+    }
   }
 }
